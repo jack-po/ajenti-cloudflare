@@ -1,0 +1,138 @@
+<vc>
+    <body>
+        <pad>
+            <tabs>
+                <tab title="{Domains}" id="zones-setup">
+                    <bind:collection bind="zones" id="zones-list">
+                        <vc>
+                            <dt bind="__items">
+                                <dtr>
+                                    <dth text="{Domain}" />
+                                    <dth width="1" />
+                                </dtr>
+                            </dt>
+                            <bind:template>
+                                <dtr>
+                                    <dtd>
+                                        <label bind="name" style="bold" />
+                                    </dtd>
+                                    <dtd>
+                                        <button icon="remove" id="zone-delete" text="{Delete}" warning="{Confirm deletion}" />
+                                    </dtd>
+                                </dtr>
+                            </bind:template>
+                        </vc>
+                    </bind:collection>
+                    <bind:dict bind="zone_new">
+                        <tooltip text="The zone you'd like to run CNAMES through CloudFlare for, e.g. &quot;example.com&quot;">
+                            <formline text="{Domain}">
+                                <textbox bind="name" />
+                            </formline>
+                        </tooltip>
+                        <tooltip text="The CNAME that CloudFlare should ultimately resolve web connections to after they have been filtered, e.g. &quot;resolve-to-cloudflare.example.com&quot;">
+                            <formline text="{Resolve to}">
+                                <textbox bind="resolve_to" />
+                            </formline>
+                        </tooltip>
+                        <tooltip text="A comma-separated string of subdomain(s) that CloudFlare should host, e.g. &quot;www,blog,forums&quot;">
+                            <formline text="{Subdomains}">
+                                <textbox bind="subdomains" />
+                            </formline>
+                        </tooltip>
+                        <formline>
+                            <button id="zone-add" icon="plus" text="{Add}" />
+                        </formline>
+                    </bind:dict>
+                </tab>
+                <tab title="{DNS records}" id="records-config">
+                    <hc>
+                        <dropdown id="zones" />
+                        <button id="zone-select" icon="globe" text="{Select}" />
+                        <button id="zone-refresh" icon="refresh" text="{Refresh}" />
+                    </hc>
+                    <bind:collection bind="records" id="records">
+                        <vc>
+                            <dt bind="__items" />
+                            <bind:template>
+                                <collapserow>
+                                    <box>
+                                        <right>
+                                            <button bind="__delete" icon="remove" style="icon" />
+                                        </right>
+                                        <hc>
+                                            <icon icon="globe" />
+                                            <label style="bold" bind="type" />
+                                            <label style="bold" text=" : " />
+                                            <label bind="name" />
+                                            <label text=" → " />
+                                            <label bind="content" />
+                                        </hc>
+                                    </box>
+
+                                    <pad>
+                                        <vc>
+                                            <tooltip text="Type of DNS record">
+                                                <formline text="{Type}">
+                                                    <dropdown id="type-box" bind="type" />
+                                                </formline>
+                                            </tooltip>
+
+                                            <tooltip text="Name of the DNS record">
+                                                <formline text="{Name}">
+                                                    <textbox bind="name" />
+                                                </formline>
+                                            </tooltip>
+
+                                            <tooltip text="The content of the DNS record, will depend on the the type of record being added">
+                                                <formline text="{Value}">
+                                                    <textbox bind="content" />
+                                                </formline>
+                                            </tooltip>
+
+                                            <tooltip text="TTL of record in seconds. 1 = Automatic, otherwise, value must in between 120 and 86400 seconds">
+                                                <formline text="{TTL}">
+                                                    <textbox bind="ttl" type="integer" />
+                                                </formline>
+                                            </tooltip>
+
+                                            <tooltip text="MX record priority">
+                                                <formline text="{Priority}">
+                                                    <textbox bind="prio" type="integer" />
+                                                </formline>
+                                            </tooltip>
+                                        </vc>
+                                    </pad>
+                                </collapserow>
+                            </bind:template>
+
+                            <hc>
+                                <button id="save" text="{Save}" />
+                                <button bind="__add" icon="plus" text="{Create}" />
+                            </hc>
+                        </vc>
+                    </bind:collection>
+                </tab>
+                <tab title="{Configure}" id="config">
+                    <bind:dict bind="classconfig">
+                        <vc>
+                            <label text="{Sign in or sign up at CloudFlare}" style="bold" />
+                            <formline text="{E-mail}">
+                                <tooltip text="{The User's e-mail address for the CloudFlare account.}">
+                                    <textbox bind="email" />
+                                </tooltip>
+                            </formline>
+                            <formline text="{Password}">
+                                <tooltip text="{The User's password for the CloudFlare account.}">
+                                    <passwordbox bind="password" />
+                                </tooltip>
+                            </formline>
+                            <formline>
+                                <button text="Ok" id="save-config" icon="ok" />
+                            </formline>
+                        </vc>
+                    </bind:dict>
+                </tab>
+            </tabs>
+        </pad>
+    </body>
+</vc>

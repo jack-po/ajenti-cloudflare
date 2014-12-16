@@ -1,0 +1,15 @@
+<bind:dict id="bind">
+    <vc>
+        <label text="{Sign in or sign up at CloudFlare}" style="bold" />
+        <formline text="{E-mail}">
+            <tooltip text="{The User's e-mail address for the CloudFlare account.}">
+                <textbox bind="email" />
+            </tooltip>
+        </formline>
+        <formline text="{Password}">
+            <tooltip text="{The User's password for the CloudFlare account.}">
+                <passwordbox bind="password" />
+            </tooltip>
+        </formline>
+    </vc>
+</bind:dict>
